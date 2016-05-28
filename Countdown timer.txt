@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Task 1 Count-down Timer</title>
+		<style>
+			table,th,td
+				{
+				border:10px solid blue;
+				padding:5px;
+				text-align:center;
+				margin-left:450px;
+				margin-top:200px;
+				margin-bottom:140px;
+				}
+			h1
+				{
+				text-align: center;
+				}
+			button
+				{
+				margin-left:250px;
+				background-color:black;
+				color:white;
+				}
+		</style>
+	</head>
+	<body>
+		<h1>Countdown Timer</h1>
+		<table>
+			<thead>
+				<tr>
+					<th>Days</th>
+					<th>Hours</th>
+					<th>Minutes</th>
+					<th>Seconds</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td id="days"></td>
+					<td id="hours"></td>
+					<td id="minutes"></td>
+					<td id="seconds"></td>
+				</tr>
+			</tbody>
+		</table>
+		<button onclick="Input()">Input</button>
+		<button onclick="Input.Stop()">Stop</button>
+		<button onclick="Input.Start()">Start</button>
+		<button onclick="Input.Reset()">Reset</button>
+		<script>
+			var interval;
+			function Input() 
+				{
+   				var seconds = prompt("Enter the seconds");
+				var minutes=prompt("Enter the minutes");
+ 				var hours=prompt("Enter the hours");
+    				var days=prompt("Enter the days");
+				var s1=parseInt(seconds);
+				var m1=parseInt(minutes);
+				var h1=parseInt(hours);
+				var d1=parseInt(days);
+				var t=s1+m1*60+h1*3600+d1*86400;
+				interval=setInterval(Timer,1000);
+				function Timer()
+					{
+					t--;
+					var s = ((t) % 60);
+					var m = Math.floor((t / 60) % 60);
+					var h= Math.floor((t / (60 * 60)) % 24);
+					var d = Math.floor(t / (60 * 60 * 24));
+					if (s==0&&m==0&&h==0&&d==0) 
+						{
+						clearInterval(interval);
+						}
+					document.getElementById("seconds").innerHTML=s;
+					document.getElementById("minutes").innerHTML=m;   
+					document.getElementById("hours").innerHTML=h;
+					document.getElementById("days").innerHTML=d;
+					}
+				function Stop()
+					{
+					clearInterval(interval);
+					}
+				Input.Stop=Stop;
+				function Start()
+					{
+					interval=setInterval(Timer,1000);
+					Timer();
+					}
+				Input.Start=Start;
+				function Reset()
+					{
+					document.getElementById("seconds").innerHTML=s1;
+					document.getElementById("minutes").innerHTML=m1;   
+					document.getElementById("hours").innerHTML=h1;
+					document.getElementById("days").innerHTML=d1;
+					clearInterval(interval);
+					t=s1+m1*60+h1*3600+d1*86400;
+					}
+				Input.Reset=Reset;
+				}
+		</script>
+	</body>
+</html>
